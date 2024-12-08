@@ -3,8 +3,10 @@ package com.devsuperior.dsmeta.services;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
+import com.devsuperior.dsmeta.dto.SellerMinDTO;
 import com.devsuperior.dsmeta.projections.SaleAndSellerProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,8 @@ public class SaleService {
 		return new SaleMinDTO(entity);
 	}
 
+// test projection SaleAndSellerProjection
+
 //	@Transactional(readOnly = true)
 //	public Page<SaleMinDTO> salesReport(String minDate, String maxDate, String name, Pageable pageable) {
 //		// Data final (maxDate): Se não fornecida, usar a data atual
@@ -44,6 +48,8 @@ public class SaleService {
 //		return result.map(SaleMinDTO::new);
 //	}
 
+	//GET /sales/report
+	//GET /sales/report?minDate=2022-05-01&maxDate=2022-05-31&name=odinson
 	@Transactional(readOnly = true)
 	public Page<SaleMinDTO> salesReport(String minDate, String maxDate, String name, Pageable pageable) {
 		// Data final (maxDate): Se não fornecida, usar a data atual
@@ -59,4 +65,20 @@ public class SaleService {
 		return result;
 	}
 
+	//GET /sales/summary
+	//GET /sales/summary?minDate=2022-01-01&maxDate=2022-06-30
+	@Transactional(readOnly = true)
+	public Page<SellerMinDTO> summaryBySeller(String minDate, String maxDate, Pageable pageable) {
+		// Data final (maxDate): Se não fornecida, usar a data atual
+		LocalDate maxDateParsed = (maxDate == null || maxDate.isEmpty())
+				? LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault())
+				: LocalDate.parse(maxDate);
+
+		// Data inicial (minDate): Se não fornecida, usar 1 ano antes da data final
+		LocalDate minDateParsed = (minDate == null || minDate.isEmpty())
+				? maxDateParsed.minusYears(1L)
+				: LocalDate.parse(minDate);
+		Page<SellerMinDTO> result = repository.search3(minDateParsed, maxDateParsed, pageable);
+		return result;
+	}
 }
