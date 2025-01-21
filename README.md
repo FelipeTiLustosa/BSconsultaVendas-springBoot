@@ -1,15 +1,12 @@
-# Consulta de Vendas Spring Boot
+# Consulta de Vendas Spring Boot <img src="https://skillicons.dev/icons?i=spring,java" alt="Spring Boot and Java Icon" style="vertical-align: middle; height: 35px;"/> <img src="https://skillicons.dev/icons?i=hibernate,maven,postgres" alt="Hibernate, Maven e H2 Icons" style="vertical-align: middle; height: 35px;"/> <img src="https://skillicons.dev/icons?i=postman" alt="Postman Icon" style="vertical-align: middle; height: 35px;"/>
 
 ## Sobre o Projeto
-
 Sistema de consulta de vendas desenvolvido com Spring Boot que permite realizar consultas de vendas por período e vendedor, além de gerar relatórios de sumário de vendas. O projeto implementa uma API REST com endpoints para consulta de dados de vendas e vendedores.
 
 ## Diagrama do Projeto
-
 ![Captura de tela 2025-01-21 160035](https://github.com/user-attachments/assets/bc2ba825-e2db-4f05-b73a-30e573322dda)
 
 ## Tecnologias Utilizadas
-
 - Java 11
 - Spring Boot
 - JPA / Hibernate
@@ -21,18 +18,10 @@ Sistema de consulta de vendas desenvolvido com Spring Boot que permite realizar 
 
 ## Funcionalidades
 
-### 1. Relatório de Vendas
-- Consulta paginada de vendas com filtros opcionais:
-  - Data inicial
-  - Data final
-  - Nome do vendedor (parcial)
-- Retorna dados da venda: id, data, valor e nome do vendedor
-
-### 2. Sumário de Vendas por Vendedor
-- Consulta agrupada por vendedor com filtros opcionais:
-  - Data inicial
-  - Data final
-- Retorna total de vendas por vendedor no período
+| Funcionalidade | Descrição | Parâmetros de Entrada | Retorno |
+|----------------|-----------|----------------------|----------|
+| **Relatório de Vendas** | Consulta paginada de vendas com filtros | - Data inicial (opcional)<br>- Data final (opcional)<br>- Nome do vendedor (opcional) | Lista paginada com:<br>- ID da venda<br>- Data<br>- Valor<br>- Nome do vendedor |
+| **Sumário de Vendas por Vendedor** | Consulta agrupada por vendedor | - Data inicial (opcional)<br>- Data final (opcional) | Lista com:<br>- Nome do vendedor<br>- Total de vendas |
 
 ## Endpoints da API
 
@@ -65,7 +54,6 @@ GET /sales/summary?minDate=2022-01-01&maxDate=2022-06-30
    - Se nome não informado: considera texto vazio
 
 ## Estrutura do Projeto
-
 ```
 src/main/java/com.devsuperior.dsmeta
 ├── controllers
